@@ -66,6 +66,7 @@ document.querySelectorAll('.benefit-card, .plan-card, .portfolio-item').forEach(
 
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
+
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -79,9 +80,16 @@ if (contactForm) {
         const message = formData.get('message');
 
         // Criar mensagem para WhatsApp
-        const whatsappMessage = `Olá! Gostaria de solicitar um orçamento:\n\n*Nome:* ${name}\n*E-mail:* ${email}\n*Telefone:* ${phone}\n*Plano:* ${plan}\n*Mensagem:* ${message}`;
+        const whatsappMessage = `Olá! Gostaria de solicitar um orçamento:
+
+*Nome:* ${name}
+*E-mail:* ${email}
+*Telefone:* ${phone}
+*Plano:* ${plan}
+*Mensagem:* ${message}`;
+
         const encodedMessage = encodeURIComponent(whatsappMessage);
-        const whatsappNumber = '5511999999999'; // Substitua pelo número real
+        const whatsappNumber = '5535997553071'; 
 
         // Perguntar ao usuário qual opção deseja
         const userChoice = confirm("Deseja enviar pelo WhatsApp? Se clicar em 'Cancelar', será enviado por e-mail.");
@@ -93,12 +101,15 @@ if (contactForm) {
             this.reset();
         } else {
             // Envia pelo Formspree
-            const formspreeURL = "https://formspree.io/f/seuID"; // Substitua pelo seu ID Formspree
+            const formspreeURL = "https://formspree.io/f/mqabbvoa";
+            
             try {
                 const response = await fetch(formspreeURL, {
                     method: "POST",
                     body: formData,
-                    headers: { "Accept": "application/json" }
+                    headers: { 
+                        "Accept": "application/json" 
+                    }
                 });
 
                 if (response.ok) {
