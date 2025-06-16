@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'fonte';
+    src: url(fonte/noxlock/Noxlock-Free.otf);
+}
+
+#nome-logo{
+    font-family: 'fonte';
+    font-size: 32px;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
