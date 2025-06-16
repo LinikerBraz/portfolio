@@ -67,9 +67,9 @@ document.querySelectorAll('.benefit-card, .plan-card, .portfolio-item').forEach(
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(this);
         const name = formData.get('name');
@@ -77,33 +77,42 @@ if (contactForm) {
         const phone = formData.get('phone');
         const plan = formData.get('plan');
         const message = formData.get('message');
-        
-        // Create WhatsApp message
-        const whatsappMessage = `Olá! Gostaria de solicitar um orçamento:
-        
-*Nome:* ${name}
-*E-mail:* ${email}
-*Telefone:* ${phone}
-*Plano:* ${plan}
-*Mensagem:* ${message}`;
-        
-        // Encode message for URL
+
+        // Criar mensagem para WhatsApp
+        const whatsappMessage = `Olá! Gostaria de solicitar um orçamento:\n\n*Nome:* ${name}\n*E-mail:* ${email}\n*Telefone:* ${phone}\n*Plano:* ${plan}\n*Mensagem:* ${message}`;
         const encodedMessage = encodeURIComponent(whatsappMessage);
-        
-        // WhatsApp number (replace with your actual number)
-        const whatsappNumber = '5511999999999';
-        
-        // Open WhatsApp
-        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
-        
-        // Show success message
-        alert('Redirecionando para o WhatsApp...');
-        
-        // Reset form
-        this.reset();
+        const whatsappNumber = '5511999999999'; // Substitua pelo número real
+
+        // Perguntar ao usuário qual opção deseja
+        const userChoice = confirm("Deseja enviar pelo WhatsApp? Se clicar em 'Cancelar', será enviado por e-mail.");
+
+        if (userChoice) {
+            // Redireciona para o WhatsApp
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+            alert('Redirecionando para o WhatsApp...');
+            this.reset();
+        } else {
+            // Envia pelo Formspree
+            const formspreeURL = "https://formspree.io/f/seuID"; // Substitua pelo seu ID Formspree
+            try {
+                const response = await fetch(formspreeURL, {
+                    method: "POST",
+                    body: formData,
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (response.ok) {
+                    alert("Orçamento enviado com sucesso! Em breve entraremos em contato.");
+                    this.reset();
+                } else {
+                    alert("Erro ao enviar. Tente novamente mais tarde.");
+                }
+            } catch (error) {
+                alert("Erro na conexão. Verifique sua internet e tente novamente.");
+            }
+        }
     });
 }
-
 // Plan selection buttons
 document.querySelectorAll('.plan-card .btn').forEach(button => {
     button.addEventListener('click', function(e) {
