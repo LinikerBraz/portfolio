@@ -124,6 +124,42 @@ if (contactForm) {
         }
     });
 }
+
+// WhatsApp button functionality
+document.querySelectorAll('.btn-whatsapp').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const whatsappNumber = '5535997553071';
+        
+        // Você pode customizar a mensagem baseada no contexto do botão
+        let whatsappMessage = 'Olá! Gostaria de mais informações sobre seus serviços.';
+        
+        // Se o botão tem um atributo data-message, usa essa mensagem
+        if (this.dataset.message) {
+            whatsappMessage = this.dataset.message;
+        }
+        // Se o botão está dentro de uma seção específica, customiza a mensagem
+        else if (this.closest('.hero')) {
+            whatsappMessage = 'Olá! Vi seu site e gostaria de conversar sobre desenvolvimento web.';
+        }
+        else if (this.closest('.services')) {
+            whatsappMessage = 'Olá! Tenho interesse em seus serviços. Podemos conversar?';
+        }
+        else if (this.closest('.portfolio')) {
+            whatsappMessage = 'Olá! Vi seu portfólio e gostaria de discutir um projeto.';
+        }
+        
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        
+        // Abre o WhatsApp
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        
+        // Track the click
+        trackClick(this, 'WhatsApp Contact');
+    });
+});
+
 // Plan selection buttons
 document.querySelectorAll('.plan-card .btn').forEach(button => {
     button.addEventListener('click', function(e) {
@@ -192,31 +228,7 @@ window.addEventListener('scroll', () => {
 });
 
 // Add hover effects to portfolio items
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    item.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Add click tracking for analytics (you can integrate with Google Analytics later)
-function trackClick(element, action) {
-    // This is where you would send data to your analytics service
-    console.log(`Clicked: ${action}`);
-    
-    // Example: gtag('event', 'click', { 'event_category': 'button', 'event_label': action });
-}
-
-// Add click tracking to important buttons
-document.querySelectorAll('.btn-primary, .btn-whatsapp, .btn-instagram').forEach(button => {
-    button.addEventListener('click', function() {
-        const action = this.textContent.trim();
-        trackClick(this, action);
-    });
-});
+document.querySelectorAll('.portfolio-item').forEach(item =>
 
 // Add typing effect to hero title (optional enhancement)
 function typeWriter(element, text, speed = 100) {
@@ -235,7 +247,7 @@ function typeWriter(element, text, speed = 100) {
 }
 
 // Lazy loading for images (when you add real images)
-function lazyLoadImages() {
+,function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
     
     const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -253,7 +265,7 @@ function lazyLoadImages() {
 }
 
 // Initialize lazy loading
-lazyLoadImages();
+,lazyLoadImages());
 
 // Add smooth reveal animation for sections
 const revealSections = document.querySelectorAll('section');
