@@ -149,7 +149,7 @@ document.querySelectorAll('.plan-card .btn').forEach(button => {
             // For other plans, create WhatsApp message
             const whatsappMessage = `Olá! Tenho interesse no plano *${planName}*. Gostaria de mais informações.`;
             const encodedMessage = encodeURIComponent(whatsappMessage);
-            const whatsappNumber = '5511999999999';
+            const whatsappNumber = '5535997553071';
             
             window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
         }
