@@ -9,8 +9,15 @@
     src: url(fonte/noxlock/Noxlock-Free.otf);
 }
 
-#nome-logo{
+.nome-logo{
     font-family: 'fonte';
+}
+
+.nome-logo h2{
+    font-size: 32px;
+}
+
+.nome-logo h3{
     font-size: 32px;
 }
 
